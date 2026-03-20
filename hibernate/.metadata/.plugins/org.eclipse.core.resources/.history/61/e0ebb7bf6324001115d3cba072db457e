@@ -1,0 +1,33 @@
+package com.umfrancisco;
+
+import java.util.Random;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+public class Main {
+	public static void main(String[] args) {
+		Student s1 = new Student();
+		s1.setName("Navin");
+		s1.setRollNo(new Random().nextInt(1000));
+		s1.setAge(30);
+		
+		Student s2 = null;
+		
+		SessionFactory sf = new Configuration()
+				.addAnnotatedClass(com.umfrancisco.Student.class)
+				.configure()
+				.buildSessionFactory();
+		
+		Session session = sf.openSession();
+		
+		session.persist(s1);
+		transaction.commit();
+		session.close();
+		sf.close();
+		
+		System.out.println(s2);
+	}
+}

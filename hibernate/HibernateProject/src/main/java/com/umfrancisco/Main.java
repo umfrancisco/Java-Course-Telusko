@@ -2,27 +2,23 @@ package com.umfrancisco;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class Main {
 	public static void main(String[] args) {
-		Student s1 = new Student();
-		s1.setName("Navin");
-		s1.setRollNo(101);
-		s1.setAge(30);
+		Student s2 = null;
 		
-		Configuration cfg = new Configuration();
-		cfg.addAnnotatedClass(com.umfrancisco.Student.class);
-		cfg.configure();
+		SessionFactory sf = new Configuration()
+				.addAnnotatedClass(com.umfrancisco.Student.class)
+				.configure()
+				.buildSessionFactory();
 		
-		SessionFactory sf = cfg.buildSessionFactory();
 		Session session = sf.openSession();
-		Transaction transaction = session.beginTransaction();
+		s2 = session.find(Student.class, 543);
 		
-		session.persist(s1);
-		transaction.commit();
+		session.close();
+		sf.close();
 		
-		System.out.println(s1);
+		System.out.println(s2);
 	}
 }
