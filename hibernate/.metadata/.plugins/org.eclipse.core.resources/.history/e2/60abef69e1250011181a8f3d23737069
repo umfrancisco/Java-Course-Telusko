@@ -1,0 +1,33 @@
+package com.umfrancisco;
+
+import java.util.Random;
+
+public class Main {
+	public static void main(String[] args) {
+		String[] names = {"Ann", "Bob", "Carole", "Dave"};
+		int size = names.length;
+		for (int i = 0; i < 15; i++) {
+			System.out.println(new User(names[i % size]));
+		}
+	}
+}
+
+class User {
+	private int id;
+	private String name;
+	
+	public User(String name) {
+		id = new Random().nextInt(999);
+		this.name = name;
+	}
+	
+	public User(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
+	@Override
+	public String toString() {
+		return "(%d) %s".formatted(id, name);
+	}
+}

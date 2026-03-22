@@ -1,0 +1,26 @@
+package com.umfrancisco;
+
+import java.util.Random;
+
+public class Main {
+	
+}
+
+class User {
+	private int id;
+	private String name;
+	
+	public User() {
+		this("Default User");
+	}
+	
+	public User(String name) {
+		id = new Random().nextInt();
+		this.name = name;
+	}
+	
+	public User(int id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+}
