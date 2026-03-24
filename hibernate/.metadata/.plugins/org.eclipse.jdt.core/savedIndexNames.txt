@@ -1,22 +1,5 @@
 INDEX VERSION 1.134+C:\Users\Franc\Documents\java-workspaces\telusko\hibernate\.metadata\.plugins\org.eclipse.jdt.core
-3930771060.index
-1019468737.index
-693360865.index
-427432316.index
-2291965108.index
-3699651524.index
-470489506.index
-3413725848.index
-2672188119.index
-1796059395.index
-6565101.index
 712673515.index
-2021509034.index
-3474007089.index
-1400348761.index
-49027625.index
-330539944.index
 3179199364.index
-69660058.index
 1865797976.index
-2393982246.index
+3207976682.index
