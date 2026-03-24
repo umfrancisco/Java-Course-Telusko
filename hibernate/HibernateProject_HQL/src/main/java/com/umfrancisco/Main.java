@@ -1,15 +1,11 @@
 package com.umfrancisco;
 
-import java.util.List;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 
 public class Main {
 	public static void main(String[] args) {
-		
 		SessionFactory sf = new Configuration()
 				.addAnnotatedClass(com.umfrancisco.Laptop.class)
 				.configure()
@@ -17,16 +13,14 @@ public class Main {
 		
 		Session session = sf.openSession();
 		
-		// select * from laptop where ram = 32 -> SQL
-		// from Laptop where ram = 32 -> HQL
+		var l1 = session.find(Laptop.class, 2);
+		System.out.println(l1);
 		
-		Query<Laptop> query = session.createQuery("from Laptop", Laptop.class);
-		List<Laptop> laptops = query.getResultList();
+		Session session1 = sf.openSession();
+		var l2 = session1.find(Laptop.class, 2);
+		System.out.println(l2);
 		
-		for (Laptop l : laptops) {
-			System.out.println(l);
-		}
-		
+		session1.close();
 		session.close();
 		sf.close();
 	}

@@ -95,3 +95,62 @@ public class Main {
 		sf.close();
 	}
 }
+
+// # Classes Main and Laptop -> query specific data
+
+public class Laptop {
+	// unchanged
+}
+
+public class Main {
+	public static void main(String[] args) {
+
+		SessionFactory sf = new Configuration()
+				.addAnnotatedClass(com.umfrancisco.Laptop.class)
+				.configure()
+				.buildSessionFactory();
+
+		Session session = sf.openSession();
+
+		// select * from laptop where ram = 32 -> SQL
+		// from Laptop where ram = 32 -> HQL
+		
+		String brand = "Asus";
+
+		Query<Laptop> query = session.createQuery("from Laptop where brand like ?1", Laptop.class);
+		query.setParameter(1, brand);
+		
+		List<Laptop> laptops = query.getResultList();
+		
+		for (var l : laptops) {
+			System.out.println(l);
+		}
+
+		session.close();
+		sf.close();
+	}
+}
+
+// # Classes Main and Laptop -> getReference()
+
+public class Laptop {
+	// unchanged
+}
+
+public class Main {
+	public static void main(String[] args) {
+
+		SessionFactory sf = new Configuration()
+				.addAnnotatedClass(com.umfrancisco.Laptop.class)
+				.configure()
+				.buildSessionFactory();
+
+		Session session = sf.openSession();
+
+		var l = session.getReference(Laptop.class, 2);
+		System.out.println(l);
+
+		session.close();
+		sf.close();
+	}
+}
