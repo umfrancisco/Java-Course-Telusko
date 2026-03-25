@@ -1,0 +1,23 @@
+// # spring boot
+
+
+// # basic example of dependency injection
+
+@SpringBootApplication
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+		Alien obj = context.getBean(Alien.class);
+		Alien obj1 = context.getBean(Alien.class);
+		
+		System.out.println(obj);
+		System.out.println(obj1);
+	}
+
+}
+
+@Component
+public class Alien {
+	
+}
