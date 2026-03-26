@@ -1,4 +1,10 @@
-// # Classes Main and Laptop -> insert data
+/*
+
+	HIBERNATE QUERY LANGUAGE TUTORIAL
+
+*/
+
+// CLASSES MAIN AND LAPTOP -> INSERT DATA
 
 @Entity
 public class Laptop {
@@ -65,7 +71,7 @@ public class Main {
 	}
 }
 
-// # Classes Main and Laptop -> query data
+// CLASSES MAIN AND LAPTOP -> QUERY DATA
 
 public class Laptop {
 	// unchanged
@@ -96,7 +102,7 @@ public class Main {
 	}
 }
 
-// # Classes Main and Laptop -> query specific data
+// CLASSES MAIN AND LAPTOP -> QUERY SPECIFIC DATA
 
 public class Laptop {
 	// unchanged
@@ -131,7 +137,7 @@ public class Main {
 	}
 }
 
-// # Classes Main and Laptop -> getReference()
+// CLASSES MAIN AND LAPTOP -> getReference()
 
 public class Laptop {
 	// unchanged

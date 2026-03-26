@@ -1,6 +1,10 @@
-// HIBERNATE BASICS
+/*
 
-// # HIBERNATE CONFIG
+	HIBERNATE BASICS
+
+*/
+
+// HIBERNATE CONFIG
 
 <hibernate-configuration>
 	<session-factory>
@@ -16,7 +20,7 @@
 	</session-factory>
 </hibernate-configuration>
 
-// # CRUD OPERATIONS
+// CRUD OPERATIONS
 
 public class HibernateTutorial {
 	
@@ -102,7 +106,7 @@ public class HibernateTutorial {
 	}
 }
 
-// # STUDENT ENTITY CLASS
+// STUDENT ENTITY CLASS
 
 @Entity
 public class Student {
@@ -115,7 +119,7 @@ public class Student {
 	// getters, setters, toString
 }
 
-// # MODIFYING TABLES AND COLUMNS
+// MODIFYING TABLES AND COLUMNS
 
 @Entity
 @Table(name="alien_table")
@@ -156,7 +160,7 @@ public class Main {
 	}
 }
 
-// # EMBEDDABLE
+// EMBEDDABLE
 
 @Entity
 public class Alien {
@@ -212,7 +216,7 @@ public class Main {
 	}
 }
 
-// # ONE_TO_ONE MAPPING
+// ONE_TO_ONE MAPPING
 
 @Entity
 public class Alien {
@@ -274,9 +278,9 @@ public class Main {
 	}
 }
 
-// # ONE_TO_MANY & MANY_TO_ONE
+// ONE_TO_MANY & MANY_TO_ONE
 
-// separate table for alien and laptop
+// SEPARATE TABLE FOR ALIEN AND LAPTOP
 @Entity
 public class Alien {
 	@Id
@@ -339,7 +343,7 @@ public class Main {
 	}
 }
 
-// no separate table for alien and laptop ids
+// NO SEPARATE TABLE FOR ALIEN AND LAPTOP IDS
 @Entity
 public class Alien {	
 	@Id
@@ -409,7 +413,7 @@ public class Main {
 
 // # MANY_TO_MANY
 
-// only one table for alien and laptop ids
+// ONLY ONE TABLE FOR ALIEN AND LAPTOP IDS
 @Entity
 public class Alien {
 	@Id
@@ -500,7 +504,7 @@ public class Main {
 	}
 }
 
-// # EAGER AND LAZY FETCH
+// EAGER AND LAZY FETCH
 
 @Entity
 public class Laptop {
