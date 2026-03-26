@@ -1,6 +1,10 @@
-// # spring xml config
+/*
 
-// using indexes
+	SPRING XML CONFIG
+
+*/
+
+// USING INDEXES
 
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,7 +19,7 @@
 	<bean id="laptop" class="com.umfrancisco.Laptop"></bean>
 </beans>
 
-// using name
+// USING NAMES
 
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -30,7 +34,7 @@
 	<bean id="laptop" class="com.umfrancisco.Laptop"></bean>
 </beans>
 
-// using properties and interface
+// USING PROPERTIES AND INTERFACE
 
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"

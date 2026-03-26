@@ -1,0 +1,33 @@
+/*
+	
+	SPRING FRAMEWORK CONFIG USING XML
+	
+*/
+
+// USING BEAN ID TO REF CLASS
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+	<bean id="alien" class="com.umfrancisco.Alien"></bean>
+</beans>
+
+public class Alien {
+	
+	public void code() {
+		System.out.println(getClass().getName()+"::code");
+	}
+}
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class App {
+	public static void main(String[] args) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+		Alien obj = (Alien) context.getBean("alien");
+		obj.code();
+	}
+}

@@ -1,0 +1,81 @@
+/*
+
+	Using Spring Framework - Section 9
+
+*/
+
+// SPRING USING XML CONFIG
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       
+	<bean id="alien" class="com.umfrancisco.Alien" autowire="byType">
+		<property name="age" value="25"/>
+		<property name="computer">
+			<bean id="computer1" class="com.umfrancisco.Laptop" primary="true"></bean>
+		</property>
+	</bean>
+</beans>
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class Main {
+	public static void main(String[] args) {
+		ApplicationContext context = new ClassPathXmlApplicationContext("spring.xml");
+		Alien obj1 = context.getBean(Alien.class);
+		System.out.println(obj1.getAge());
+		obj1.code();
+		
+		Computer com = context.getBean(Computer.class);
+		Desktop obj2 = context.getBean(Desktop.class);
+	}
+}
+
+// SPRING USING JAVA BASED CONFIG
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.umfrancisco.Desktop;
+
+@Configuration
+public class AppConfig {
+	
+	@Bean
+	public Desktop desktop() {
+		return new Desktop();
+	}
+}
+
+public class Alien {
+	
+	private int age;
+	private Computer computer;
+	
+	public Alien() {
+		System.out.println("Alien Object created");
+	}
+	
+	// getters and setters
+	
+	public void code() {
+		System.out.println("Coding");
+		computer.compile();
+	}
+}
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.umfrancisco.config.AppConfig;
+
+public class Main {
+	public static void main(String[] args) {
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		
+		Desktop desktop = context.getBean(Desktop.class);
+		desktop.compile();
+	}
+}
