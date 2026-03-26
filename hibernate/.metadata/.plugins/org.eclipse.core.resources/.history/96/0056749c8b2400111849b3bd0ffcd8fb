@@ -1,7 +1,0 @@
-package com.umfrancisco;
-
-public class Laptop {
-	private String brand;
-	private String model;
-	private int ram;
-}

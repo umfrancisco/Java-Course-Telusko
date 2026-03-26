@@ -1,9 +1,0 @@
-package com.umfrancisco;
-
-public class Student {
-	private int rollNo;
-	private String sName;
-	private int sAge;
-	
-	
-}

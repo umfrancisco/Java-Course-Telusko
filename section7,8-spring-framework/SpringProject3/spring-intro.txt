@@ -1,0 +1,46 @@
+// # spring xml config
+
+// using indexes
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       
+	<bean id="alien" class="com.umfrancisco.Alien">
+		<constructor-arg index="0" value="25"/>
+		<constructor-arg index="1" ref="laptop"/>
+	</bean>
+	
+	<bean id="laptop" class="com.umfrancisco.Laptop"></bean>
+</beans>
+
+// using name
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       
+	<bean id="alien" class="com.umfrancisco.Alien">
+		<constructor-arg name="age" value="25"/>
+		<constructor-arg name="laptop" ref="laptop"/>
+	</bean>
+	
+	<bean id="laptop" class="com.umfrancisco.Laptop"></bean>
+</beans>
+
+// using properties and interface
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       
+	<bean id="alien" class="com.umfrancisco.Alien">
+		<property name="age" value="25"/>
+		<property name="computer" ref="laptop"/>
+	</bean>
+	
+	<bean id="laptop" class="com.umfrancisco.Laptop"></bean>
+</beans>
