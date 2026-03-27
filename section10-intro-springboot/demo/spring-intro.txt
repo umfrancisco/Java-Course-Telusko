@@ -1,0 +1,79 @@
+/* 
+
+	Spring Boot
+
+*/
+
+// BASIC EXAMPLE OF DEPENDENCY INJECTION
+
+@SpringBootApplication
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+		Alien obj = context.getBean(Alien.class);
+		Alien obj1 = context.getBean(Alien.class);
+		
+		System.out.println(obj);
+		System.out.println(obj1);
+	}
+
+}
+
+@Component
+public class Alien {
+
+}
+
+// USING BASIC SPRING BOOT ANNOTATIONS
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+@SpringBootApplication
+public class DemoApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext context = SpringApplication.run(DemoApplication.class, args);
+		Alien obj = context.getBean(Alien.class);
+		obj.code();
+	}
+
+}
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Alien {
+	
+	@Value("25")
+	private int age;
+	private Computer computer;
+	
+	// getters and setters
+	
+	@Autowired
+	@Qualifier("laptop")
+	public void setComputer(Computer computer) {
+		this.computer = computer;
+	}
+	
+	public void code() {
+		computer.compile();
+	}
+}
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class Laptop implements Computer {
+	
+	@Override
+	public void compile() {
+		System.out.println("Compiling in Laptop");			
+	}
+}
