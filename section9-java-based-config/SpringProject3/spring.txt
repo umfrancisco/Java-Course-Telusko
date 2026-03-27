@@ -79,3 +79,8 @@ public class Main {
 		desktop.compile();
 	}
 }
+
+// USING DEFAULT NAME OF BEAN = METHOD NAME
+
+Desktop desktop = context.getBean("desktop", Desktop.class);
+
