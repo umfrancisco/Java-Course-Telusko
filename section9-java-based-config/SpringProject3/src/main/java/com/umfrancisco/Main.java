@@ -8,7 +8,8 @@ public class Main {
 	public static void main(String[] args) {
 		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 		
-		Desktop desktop = context.getBean("desktop", Desktop.class);
-		desktop.compile();
+		Alien obj1 = context.getBean(Alien.class);
+		System.out.println(obj1.getAge());
+		obj1.code();
 	}
 }

@@ -1,6 +1,6 @@
 /*
 
-	Using Spring Framework - Section 9
+	Using Spring Framework
 
 */
 
@@ -84,3 +84,362 @@ public class Main {
 
 Desktop desktop = context.getBean("desktop", Desktop.class);
 
+// CREATING NEW REFERENCE IF CALLED
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
+import com.umfrancisco.Desktop;
+
+@Configuration
+public class AppConfig {
+	
+	@Bean
+	@Scope("prototype")
+	public Desktop desktop() {
+		return new Desktop();
+	}
+}
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.umfrancisco.config.AppConfig;
+
+public class Main {
+	public static void main(String[] args) {
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		
+		Desktop desktop = context.getBean(Desktop.class);
+		desktop.compile();
+		
+		Desktop desktop1 = context.getBean(Desktop.class);
+		desktop1.compile();
+	}
+}
+
+// WORKING WITH COMPOSITION IN SPRING
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import com.umfrancisco.Alien;
+import com.umfrancisco.Computer;
+import com.umfrancisco.Desktop;
+
+@Configuration
+public class AppConfig {
+	
+	@Bean
+	public Alien alien(@Autowired Computer computer) {
+		Alien obj = new Alien();
+		obj.setAge(25);
+		obj.setComputer(computer);
+		return obj;
+	}
+	
+	@Bean
+	public Desktop desktop() {
+		return new Desktop();
+	}
+}
+
+public class Alien {
+	
+	private int age;
+	private Computer computer;
+	
+	public Alien() {
+		System.out.println("Alien Object created");
+	}
+	
+	// getters and setters
+	
+	public void code() {
+		System.out.println("Coding");
+		computer.compile();
+	}
+}
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.umfrancisco.config.AppConfig;
+
+public class Main {
+	public static void main(String[] args) {
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		
+		Alien obj1 = context.getBean(Alien.class);
+		System.out.println(obj1.getAge());
+		obj1.code();
+	}
+}
+
+// MULTIPLE OBJECTS REFERENCE USING @Qualifier
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import com.umfrancisco.Alien;
+import com.umfrancisco.Computer;
+import com.umfrancisco.Desktop;
+import com.umfrancisco.Laptop;
+
+@Configuration
+public class AppConfig {
+	
+	@Bean
+	public Alien alien(@Qualifier("laptop") Computer computer) {
+		Alien obj = new Alien(25, computer);
+		return obj;
+	}
+	
+	@Bean
+	public Desktop desktop() {
+		return new Desktop();
+	}
+	
+	@Bean
+	public Laptop laptop() {
+		return new Laptop();
+	}
+}
+
+public class Alien {
+	
+	private int age;
+	private Computer computer;
+	
+	public Alien(int age, Computer computer) {
+		this.age = age;
+		this.computer = computer;
+	}
+	
+	// getters
+	
+	public void code() {
+		System.out.println("Coding");
+		computer.compile();
+	}
+}
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.umfrancisco.config.AppConfig;
+
+public class Main {
+	public static void main(String[] args) {
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		
+		Alien obj1 = context.getBean(Alien.class);
+		System.out.println(obj1.getAge());
+		obj1.code();
+	}
+}
+
+// MULTIPLE OBJECTS REFERENCE USING @Primary
+
+Main, Alien: unchanged
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import com.umfrancisco.Alien;
+import com.umfrancisco.Computer;
+import com.umfrancisco.Desktop;
+import com.umfrancisco.Laptop;
+
+@Configuration
+public class AppConfig {
+	
+	@Bean
+	public Alien alien(Computer computer) {
+		Alien obj = new Alien(25, computer);
+		return obj;
+	}
+	
+	@Bean
+	public Desktop desktop() {
+		return new Desktop();
+	}
+	
+	@Bean
+	@Primary
+	public Laptop laptop() {
+		return new Laptop();
+	}
+}
+
+// USING @ComponentScan
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan("com.umfrancisco")
+public class AppConfig {
+	
+}
+
+@Component
+public class Alien {
+	
+	private int age;
+	
+	@Autowired
+	@Qualifier("laptop")
+	private Computer computer;		// Field Injection
+	
+	public Alien() {
+		System.out.println("Alien Object created");
+	}
+	
+	// getters and setters
+	
+	public void code() {
+		System.out.println("Coding");
+		computer.compile();
+	}
+}
+
+@Component
+public class Laptop implements Computer {
+	
+	public Laptop() {
+		System.out.println("Laptop Object created");
+	}
+	
+	public void compile() {
+		System.out.println("Compiling using laptop");
+	}
+}
+
+// USING @Primary
+
+@Configuration
+@ComponentScan("com.umfrancisco")
+public class AppConfig {
+	
+}
+
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
+
+@Component
+@Primary
+public class Laptop implements Computer {
+	
+	public Laptop() {
+		System.out.println("Laptop Object created");
+	}
+	
+	public void compile() {
+		System.out.println("Compiling using laptop");
+	}
+}
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Alien {
+	
+	private int age;
+	
+	@Autowired
+	private Computer computer;
+	
+	public Alien() {
+		System.out.println("Alien Object created");
+	}
+	
+	// getters and setters
+	
+	public void code() {
+		System.out.println("Coding");
+		computer.compile();
+	}
+}
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.umfrancisco.config.AppConfig;
+
+public class Main {
+	public static void main(String[] args) {
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		
+		Alien obj1 = context.getBean(Alien.class);
+		System.out.println(obj1.getAge());
+		obj1.code();
+	}
+}
+
+// USING @Scope and @Value
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@ComponentScan("com.umfrancisco")
+public class AppConfig {
+	
+}
+
+import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Primary
+@Scope("prototype")
+public class Desktop implements Computer {
+	
+	public Desktop() {
+		System.out.println("Desktop Object created");
+	}
+
+	@Override
+	public void compile() {
+		System.out.println("Compiling using desktop");
+	}
+	
+}
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Alien {
+	
+	@Value("21")
+	private int age;
+	
+	@Autowired
+	private Computer computer;
+	
+	public Alien() {
+		System.out.println("Alien Object created");
+	}
+	
+	// getters and setters
+	
+	public void code() {
+		System.out.println("Coding");
+		computer.compile();
+	}
+}
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import com.umfrancisco.config.AppConfig;
+
+public class Main {
+	public static void main(String[] args) {
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		
+		Alien obj1 = context.getBean(Alien.class);
+		System.out.println(obj1.getAge());
+		obj1.code();
+	}
+}
