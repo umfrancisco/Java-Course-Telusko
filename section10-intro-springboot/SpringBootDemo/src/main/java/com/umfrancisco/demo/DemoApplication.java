@@ -16,5 +16,5 @@ public class DemoApplication {
 		Laptop laptop = context.getBean(Laptop.class);
 		service.addLaptop(laptop);
 	}
-
+	
 }
