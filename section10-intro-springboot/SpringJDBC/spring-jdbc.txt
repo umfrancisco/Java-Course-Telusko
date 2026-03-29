@@ -1,0 +1,98 @@
+/*
+
+	SPRING JDBC
+
+*/
+
+// BASIC MODEL-SERVICE-REPOSITORY SYSTEM
+
+import java.util.List;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import com.umfrancisco.model.Student;
+import com.umfrancisco.service.StudentService;
+
+@SpringBootApplication
+public class SpringJdbcApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext context = SpringApplication.run(SpringJdbcApplication.class, args);
+		
+		Student s = context.getBean(Student.class);
+		s.setRollNo(101);
+		s.setName("Navin");
+		s.setMarks(78);
+		
+		StudentService service = context.getBean(StudentService.class);
+		service.addStudent(s);
+		
+		List<Student> students = service.getStudents();
+		System.out.println(students);
+	}
+}
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+@Component
+@Scope("prototype")
+public class Student {
+	private int rollNo;
+	private String name;
+	private int marks;
+	
+	// getters, setters, toString
+}
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.umfrancisco.model.Student;
+import com.umfrancisco.repository.StudentRepository;
+
+@Service
+public class StudentService {
+	
+	private StudentRepository repository;
+	
+	public StudentRepository getRepository() {
+		return repository;
+	}
+	@Autowired
+	public void setRepository(StudentRepository repository) {
+		this.repository = repository;
+	}
+	
+	public void addStudent(Student s) {
+		repository.save(s);
+	}
+	
+	public List<Student> getStudents() {
+		return repository.findAll();
+	}
+}
+
+import java.util.ArrayList;
+import java.util.List;
+import org.springframework.stereotype.Repository;
+import com.umfrancisco.model.Student;
+
+@Repository
+public class StudentRepository {
+	
+	private Student temp;
+	
+	public void save(Student s) {
+		temp = s;
+		System.out.println(s+" added");
+	}
+	
+	public List<Student> findAll() {
+		List<Student> students = new ArrayList<>();
+		students.add(temp);
+		return students;
+	}
+}
+
+// USING H2 DATABASE
