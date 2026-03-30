@@ -1,0 +1,39 @@
+/*
+
+	SPRING JDBC
+
+*/
+
+-- schema.sql --
+create table student (
+	rollno int primary key,
+	name varchar(50),
+	marks int
+);
+
+-- data.sql -- 
+insert into student (rollno, name, marks) values 
+(101, 'Kiran', 79),
+(102, 'Harsh', 68),
+(103, 'Sushil', 82);
+update student set marks=75 where rollno = 102;
+
+// MODIFY H2 TO POSTGRES
+
+// REMOVE H2 FROM POM AND ADD POSTGRES JDBC DRIVER
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-h2console</artifactId>
+</dependency>
+<dependency>
+	<groupId>com.h2database</groupId>
+	<artifactId>h2</artifactId>
+	<scope>runtime</scope>
+</dependency>
+
+// MODIFY application.properties
+spring.application.name=SpringJDBC
+spring.datasource.url=jdbc:postgresql://192.168.15.5:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=1234
+spring.datasource.driver-class-name=org.postgresql.Driver
