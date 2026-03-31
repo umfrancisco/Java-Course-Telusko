@@ -17,13 +17,13 @@ int main() {
 						for (int o = 0; o < n; o++) {
 							for (int p = 0; p < n; p++) {
 								for (int q = 0; q < n; q++) {
-									printf("%c%c%c%c%c%c%c%c\n", 
+									printf("%c%c%c%c%c%c%c%c\n",
 										chars[i], chars[j], chars[k], chars[l],
 										chars[m], chars[o], chars[p], chars[q]
-									);          
-								}                    
-							}                    
-						}               
+									);
+								}
+							}
+						}
 					}
                 }
             }
