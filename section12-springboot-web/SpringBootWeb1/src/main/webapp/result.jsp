@@ -5,6 +5,6 @@
 		<link rel="stylesheet" type="text/css" href="styles.css">
 	</head>
 	<body>
-		<h2>Result is </h2>
+		<h2>Result is ${result} </h2>
 	</body>
 </html>
