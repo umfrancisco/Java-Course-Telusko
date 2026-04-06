@@ -1,12 +1,18 @@
 package com.umfrancisco;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
+	
+	@ModelAttribute("course")
+	public String courseName() {
+		return "Java";
+	}
 	
 	@RequestMapping("/")
 	public String home() {
@@ -19,5 +25,10 @@ public class HomeController {
 		mv.addObject("result", result);
 		mv.setViewName("result");
 		return mv;
+	}
+	
+	@RequestMapping("/addAlien")
+	public String addAlien(@ModelAttribute Alien alien) {
+		return "result";
 	}
 }

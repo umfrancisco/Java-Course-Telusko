@@ -5,6 +5,8 @@
 		<link rel="stylesheet" type="text/css" href="styles.css">
 	</head>
 	<body>
-		<h2>Result is ${result} </h2>
+		<h2>Hello, Welcome!</h2>
+		<p>${alien}</p>
+		<p>Welcome to ${course} World</p>
 	</body>
 </html>
