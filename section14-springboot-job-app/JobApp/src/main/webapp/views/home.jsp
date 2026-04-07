@@ -38,7 +38,7 @@
 				</li>
 
 				<li class="nav-item">
-					<a class="nav-link" href="https://telusko.com/">Contact</a>
+					<a class="nav-link" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUVYjDo2ptSlLpyeiXQKETvWZPnQgtK9mmCg&s">Contact</a>
 				</li>
 			</ul>
 		</div>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@ page import="com.telusko.JobApp.model.JobPost" %>
+<%@ page import="com.umfrancisco.model.JobPost" %>
 <%@page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +46,7 @@
                     <a class="nav-link" href="viewalljobs">All Jobs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://telusko.com/">Contact</a>
+                    <a class="nav-link" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUVYjDo2ptSlLpyeiXQKETvWZPnQgtK9mmCg&s">Contact</a>
                 </li>
             </ul>
         </div>
