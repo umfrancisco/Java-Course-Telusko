@@ -2,13 +2,7 @@ package com.umfrancisco.model;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Component
 public class JobPost {
 	private int postId;
@@ -16,6 +10,9 @@ public class JobPost {
 	private String postDesc;
 	private int reqExperience;
 	private List<String> postTechStack;
+	
+	public JobPost() {
+	}
 	
 	public JobPost(int postId, String postProfile, String postDesc, int reqExperience, List<String> postTechStack) {
 		this.postId = postId;
@@ -54,5 +51,11 @@ public class JobPost {
 	}
 	public void setPostTechStack(List<String> postTechStack) {
 		this.postTechStack = postTechStack;
+	}
+
+	@Override
+	public String toString() {
+		return "JobPost [postId=" + postId + ", postProfile=" + postProfile + ", postDesc=" + postDesc
+				+ ", reqExperience=" + reqExperience + ", postTechStack=" + postTechStack + "]";
 	}
 }

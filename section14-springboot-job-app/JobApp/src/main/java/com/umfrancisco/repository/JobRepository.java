@@ -3,8 +3,11 @@ package com.umfrancisco.repository;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.stereotype.Repository;
+
 import com.umfrancisco.model.JobPost;
 
+@Repository
 public class JobRepository {
 	
 	List<JobPost> jobs = new ArrayList<>(Arrays.asList(
@@ -26,5 +29,9 @@ public class JobRepository {
 	
 	public void addJob(JobPost job) {
 		jobs.add(job);
+		System.out.println("# JOBS");
+		for (var j : jobs) {
+			System.out.println(j);
+		}
 	}
 }
