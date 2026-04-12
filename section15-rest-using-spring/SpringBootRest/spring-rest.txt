@@ -1,0 +1,32 @@
+/*
+
+	SPRING BOOT REST
+
+*/
+
+// Options for Controller
+
+@Controller
+public class JobRestController {
+	
+	@Autowired
+	private JobService service;
+	
+	@GetMapping("posts")
+	@ResponseBody
+	public List<JobPost> getAllJobs() {
+		return service.getAllJobs(); 
+	}
+}
+
+@RestController
+public class JobRestController {
+	
+	@Autowired
+	private JobService service;
+	
+	@GetMapping("posts")
+	public List<JobPost> getAllJobs() {
+		return service.getAllJobs(); 
+	}
+}
