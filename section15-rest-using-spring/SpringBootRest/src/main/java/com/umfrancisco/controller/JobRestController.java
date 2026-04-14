@@ -3,9 +3,11 @@ package com.umfrancisco.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import com.umfrancisco.model.JobPost;
@@ -32,5 +34,17 @@ public class JobRestController {
 	public JobPost addJob(@RequestBody JobPost post) {
 		service.addJob(post);
 		return service.getJob(post.getPostId());
+	}
+	
+	@PutMapping("post")
+	public JobPost updateJob(@RequestBody JobPost post) {
+		service.updateJob(post);
+		return service.getJob(post.getPostId());
+	}
+	
+	@DeleteMapping("post/{id}")
+	public String deleteJob(@PathVariable int id) {
+		service.deleteJob(id);
+		return "Deleted";
 	}
 }

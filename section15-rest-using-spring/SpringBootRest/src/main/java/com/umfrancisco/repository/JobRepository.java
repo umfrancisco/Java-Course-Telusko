@@ -38,4 +38,23 @@ public class JobRepository {
 	public void addJob(JobPost job) {
 		jobs.add(job);
 	}
+	
+	public void updateJob(JobPost job) {
+		for (var j : jobs) {
+			if (j.getPostId() == job.getPostId()) {
+				j.setPostProfile(job.getPostProfile());
+				j.setPostDesc(job.getPostDesc());
+				j.setReqExperience(job.getReqExperience());
+				j.setPostTechStack(job.getPostTechStack());
+			}
+		}
+	}
+	
+	public void deleteJob(int id) {
+		for (var j : jobs) {
+			if (j.getPostId() == id) {
+				jobs.remove(j);
+			}
+		}
+	}
 }
