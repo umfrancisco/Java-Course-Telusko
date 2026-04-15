@@ -14,6 +14,7 @@ public class StudentService {
 	public StudentRepository getRepository() {
 		return repository;
 	}
+	
 	@Autowired
 	public void setRepository(StudentRepository repository) {
 		this.repository = repository;

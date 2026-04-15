@@ -1,0 +1,109 @@
+/*
+
+	SPRING DATA JPA
+
+*/
+
+// save, findAll and findById
+
+import java.util.Optional;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import com.umfrancisco.model.Student;
+import com.umfrancisco.repository.StudentRepository;
+
+@SpringBootApplication
+public class SpringDataJpaApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext context = SpringApplication.run(SpringDataJpaApplication.class, args);
+		StudentRepository repository = context.getBean(StudentRepository.class);
+		
+		Student s1 = context.getBean(Student.class);
+		Student s2 = context.getBean(Student.class);
+		Student s3 = context.getBean(Student.class);
+		
+		s1.set(101, "Navin", 75);
+		s2.set(102, "Kiran", 80);
+		s3.set(103, "Harsh", 70);
+		
+		repository.save(s1);
+		
+		System.out.println(repository.findAll());
+		System.out.println(repository.findById(101));
+		
+		Optional<Student> s = repository.findById(103);
+		System.out.println(s.orElse(new Student()));
+	}
+}
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.umfrancisco.model.Student;
+
+@Repository
+public interface StudentRepository extends JpaRepository<Student, Integer> {
+	
+}
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Component
+@Scope("prototype")
+@Entity
+public class Student {
+	
+	@Id
+	private int rollNo;
+	private String name;
+	private int marks;
+	
+	public void set(int rollNo, String name, int marks) {
+		this.setRollNo(rollNo);
+		this.setName(name);
+		this.setMarks(marks);
+	}
+	
+	public int getRollNo() {
+		return rollNo;
+	}
+	public void setRollNo(int rollNo) {
+		this.rollNo = rollNo;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getMarks() {
+		return marks;
+	}
+	public void setMarks(int marks) {
+		this.marks = marks;
+	}
+	
+	@Override
+	public String toString() {
+		return "Student [rollNo=" + rollNo + ", name=" + name + ", marks=" + marks + "]";
+	}
+}
+
+// find by field name
+
+import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import com.umfrancisco.model.Student;
+
+@Repository
+public interface StudentRepository extends JpaRepository<Student, Integer> {
+	
+	List<Student> findByName(String name);
+	List<Student> findByMarks(int marks);
+	List<Student> findByMarksGreaterThan(int marks);
+}
