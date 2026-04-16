@@ -1,0 +1,175 @@
+/*
+
+	SPRING BOOT REST + JPA
+
+*/
+
+// using rest controller with jpa and postgresql
+
+@Component
+@Entity
+public class JobPost {
+	
+	@Id
+	private int postId;
+	private String postProfile;
+	private String postDesc;
+	private int reqExperience;
+	private List<String> postTechStack;
+	
+	public JobPost() {
+	}
+	
+	public JobPost(int postId, String postProfile, String postDesc, int reqExperience, List<String> postTechStack) {
+		this.postId = postId;
+		this.postProfile = postProfile;
+		this.postDesc = postDesc;
+		this.reqExperience = reqExperience;
+		this.postTechStack = postTechStack;
+	}
+	
+	public int getPostId() {
+		return postId;
+	}
+	public void setPostId(int postId) {
+		this.postId = postId;
+	}
+	public String getPostProfile() {
+		return postProfile;
+	}
+	public void setPostProfile(String postProfile) {
+		this.postProfile = postProfile;
+	}
+	public String getPostDesc() {
+		return postDesc;
+	}
+	public void setPostDesc(String postDesc) {
+		this.postDesc = postDesc;
+	}
+	public int getReqExperience() {
+		return reqExperience;
+	}
+	public void setReqExperience(int reqExperience) {
+		this.reqExperience = reqExperience;
+	}
+	public List<String> getPostTechStack() {
+		return postTechStack;
+	}
+	public void setPostTechStack(List<String> postTechStack) {
+		this.postTechStack = postTechStack;
+	}
+
+	@Override
+	public String toString() {
+		return "JobPost [postId=" + postId + ", postProfile=" + postProfile + ", postDesc=" + postDesc
+				+ ", reqExperience=" + reqExperience + ", postTechStack=" + postTechStack + "]";
+	}
+}
+
+@Repository
+public interface JobRepository extends JpaRepository<JobPost, Integer> {
+	
+}
+
+@Service
+public class JobService {
+	
+	@Autowired
+	private JobRepository repository;
+	
+	public void addJob(JobPost job) {
+		repository.save(job);
+	}
+	
+	public List<JobPost> getAllJobs() {
+		return repository.findAll();
+	}
+	
+	public JobPost getJob(int id) {
+		return repository.findById(id).orElse(new JobPost());
+	}
+	
+	public void updateJob(JobPost job) {
+		repository.save(job);
+	}
+	
+	public void deleteJob(int id) {
+		repository.deleteById(id);
+	}
+	
+	public void load() {
+		List<JobPost> jobs = new ArrayList<>(Arrays.asList(
+	            new JobPost(1, "Java Backend Developer", "Must have good experience in core Java and advanced Java", 2,
+	                    List.of("Core Java", "J2EE", "Spring Boot", "Hibernate")),
+	            new JobPost(2, "Frontend Developer", "Experience in building responsive web applications using React", 3,
+	                    List.of("HTML", "CSS", "JavaScript", "React")),
+	            new JobPost(3, "Data Scientist", "Strong background in machine learning and data analysis", 4,
+	                    List.of("Python", "Machine Learning", "Data Analysis")),
+	            new JobPost(4, "Network Engineer", "Design and implement computer networks for efficient data communication", 5,
+	                    List.of("Networking", "Cisco", "Routing", "Switching")),
+	            new JobPost(5, "Mobile App Developer", "Experience in mobile app development for iOS and Android", 3,
+	                    List.of("iOS Development", "Android Development", "Mobile App"))
+	    ));
+		repository.saveAll(jobs);
+	}
+}
+
+@RestController
+@CrossOrigin(origins="http://localhost:3000")
+public class JobRestController {
+	
+	@Autowired
+	private JobService service;
+	
+	@GetMapping("posts")
+	public List<JobPost> getAllJobs() {
+		return service.getAllJobs(); 
+	}
+	
+	@GetMapping("post/{id}")
+	public JobPost getJob(@PathVariable("id") int id) {
+		return service.getJob(id);
+	}
+	
+	@PostMapping("post")
+	public JobPost addJob(@RequestBody JobPost post) {
+		service.addJob(post);
+		return service.getJob(post.getPostId());
+	}
+	
+	@PutMapping("post")
+	public JobPost updateJob(@RequestBody JobPost post) {
+		service.updateJob(post);
+		return service.getJob(post.getPostId());
+	}
+	
+	@DeleteMapping("post/{id}")
+	public String deleteJob(@PathVariable int id) {
+		service.deleteJob(id);
+		return "Deleted";
+	}
+	
+	@GetMapping("load")
+	public String loadData() {
+		service.load();
+		return "loadData() called";
+	}
+}
+
+@SpringBootApplication
+public class SpringBootRestApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringBootRestApplication.class, args);
+	}
+}
+
+-- application.properties
+spring.application.name=SpringBootRest
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=1234
+spring.datasource.driver-class-name=org.postgresql.Driver
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
