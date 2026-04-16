@@ -95,6 +95,52 @@ public class Student {
 
 // find by field name
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Component
+@Scope("prototype")
+@Entity
+public class Student {
+	
+	@Id
+	private int rollNo;
+	private String name;
+	private int marks;
+	
+	public void set(int rollNo, String name, int marks) {
+		this.setRollNo(rollNo);
+		this.setName(name);
+		this.setMarks(marks);
+	}
+	
+	public int getRollNo() {
+		return rollNo;
+	}
+	public void setRollNo(int rollNo) {
+		this.rollNo = rollNo;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getMarks() {
+		return marks;
+	}
+	public void setMarks(int marks) {
+		this.marks = marks;
+	}
+	
+	@Override
+	public String toString() {
+		return "Student [rollNo=" + rollNo + ", name=" + name + ", marks=" + marks + "]";
+	}
+}
+
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -106,4 +152,110 @@ public interface StudentRepository extends JpaRepository<Student, Integer> {
 	List<Student> findByName(String name);
 	List<Student> findByMarks(int marks);
 	List<Student> findByMarksGreaterThan(int marks);
+}
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import com.umfrancisco.repository.StudentRepository;
+
+@SpringBootApplication
+public class SpringDataJpaApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext context = SpringApplication.run(SpringDataJpaApplication.class, args);
+		StudentRepository repository = context.getBean(StudentRepository.class);
+		
+		System.out.println(repository.findByMarks(72));
+	}
+}
+
+// update and delete
+
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Component
+@Scope("prototype")
+@Entity
+public class Student {
+	
+	@Id
+	private int rollNo;
+	private String name;
+	private int marks;
+	
+	public void set(int rollNo, String name, int marks) {
+		this.setRollNo(rollNo);
+		this.setName(name);
+		this.setMarks(marks);
+	}
+	
+	public int getRollNo() {
+		return rollNo;
+	}
+	public void setRollNo(int rollNo) {
+		this.rollNo = rollNo;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getMarks() {
+		return marks;
+	}
+	public void setMarks(int marks) {
+		this.marks = marks;
+	}
+	
+	@Override
+	public String toString() {
+		return "Student [rollNo=" + rollNo + ", name=" + name + ", marks=" + marks + "]";
+	}
+}
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import com.umfrancisco.model.Student;
+import com.umfrancisco.repository.StudentRepository;
+
+@SpringBootApplication
+public class SpringDataJpaApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext context = SpringApplication.run(SpringDataJpaApplication.class, args);
+		StudentRepository repository = context.getBean(StudentRepository.class);
+		
+		Student s2 = context.getBean(Student.class);
+		s2.set(102, "Kiran", 65);
+		
+		repository.save(s2);
+		repository.delete(s2);
+	}
+}
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import com.umfrancisco.model.Student;
+import com.umfrancisco.repository.StudentRepository;
+
+@SpringBootApplication
+public class SpringDataJpaApplication {
+
+	public static void main(String[] args) {
+		ApplicationContext context = SpringApplication.run(SpringDataJpaApplication.class, args);
+		StudentRepository repository = context.getBean(StudentRepository.class);
+		
+		Student s2 = context.getBean(Student.class);
+		s2.set(102, "Kiran", 65);
+		
+		repository.save(s2);
+		repository.delete(s2);
+	}
 }
