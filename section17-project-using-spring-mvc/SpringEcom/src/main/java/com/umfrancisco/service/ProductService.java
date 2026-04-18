@@ -1,8 +1,11 @@
 package com.umfrancisco.service;
 
+import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.umfrancisco.model.Product;
 import com.umfrancisco.repository.ProductRepository;
 
@@ -18,5 +21,12 @@ public class ProductService {
 	
 	public Product getProductById(int id) {
 		return repository.findById(id).orElse(new Product(-1));
+	}
+	
+	public Product addProduct(Product product, MultipartFile image) throws IOException {
+		product.setImageName(image.getOriginalFilename());
+		product.setImageType(image.getContentType());
+		product.setImageData(image.getBytes());
+		return repository.save(product);
 	}
 }
