@@ -22,10 +22,14 @@ public class ProductService {
 		return repository.findById(id).orElse(new Product(-1));
 	}
 	
-	public Product addProduct(Product product, MultipartFile image) throws IOException {
+	public Product addOrUpdateProduct(Product product, MultipartFile image) throws IOException {
 		product.setImageName(image.getOriginalFilename());
 		product.setImageType(image.getContentType());
 		product.setImageData(image.getBytes());
 		return repository.save(product);
+	}
+
+	public void deleteProduct(int id) {
+		repository.deleteById(id);
 	}
 }
