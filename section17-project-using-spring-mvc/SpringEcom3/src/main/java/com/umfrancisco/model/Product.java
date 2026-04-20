@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -24,6 +26,10 @@ public class Product {
     private Date releaseDate;
     private boolean productAvailable;
     private int stockQuantity;
+    private String imageName;
+    private String imageType;
+    @Lob
+    private byte[] imageData;
 
     public Product() {
 
