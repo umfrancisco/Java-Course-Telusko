@@ -1,5 +1,4 @@
-INSERT INTO product (name, description, brand, price, category, release_date, product_available, stock_quantity)
-VALUES
+INSERT INTO product (name, description, brand, price, category, release_date, product_available, stock_quantity) VALUES
 ('iPhone 14', 'Latest Apple iPhone', 'Apple', 999.99, 'phone', '2023-01-01', true, 50),
 ('Galaxy S22', 'Latest Samsung Galaxy', 'Samsung', 899.99, 'phone', '2023-02-01', true, 30),
 ('MacBook Pro', 'Apple MacBook Pro 16-inch', 'Apple', 2399.99, 'laptop', '2023-03-01', true, 20),
